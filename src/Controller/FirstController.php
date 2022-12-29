@@ -37,6 +37,16 @@ class FirstController extends AbstractController
         return new Response('<h1>' . $resultat . '</h1>');
     }
 
+
+    #[Route('/first', name: 'first')]
+    public function index(): Response
+    {
+        return $this->render('first/index.html.twig', [
+            'name' => 'MINGO',
+            'firstname' => 'Rod'
+        ]);
+    }
+
     // #[Route('/sayHello/{name}/{firstname}', name: 'say.hello')]
     public function sayHello($name, $firstname): Response
     {

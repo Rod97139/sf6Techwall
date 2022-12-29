@@ -9,7 +9,12 @@
 {% endblock %}
 
 {% block body %}
+
     {{ include('fragments/date-jour.html.twig') }}
+
+    <div class="alert alert-warning">
+        <a href="{{ path('tab', {nb: 7}) }}">Stats table</a>
+    </div>
 
 
     <table class="table">
