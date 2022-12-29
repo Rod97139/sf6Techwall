@@ -10,6 +10,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class FirstController extends AbstractController
 {
 
+    #[Route('/template', name: 'template')]
+    public function template(): Response
+    {
+        return $this->render('template.html.twig');
+    }
+
     #[Route('/order/{maVar}', name: 'test.order.route')]
     public function testOrderRoute($maVar): Response
     {
@@ -31,14 +37,14 @@ class FirstController extends AbstractController
         return new Response('<h1>' . $resultat . '</h1>');
     }
 
-    #[Route('/sayHello/{name}/{firstname}', name: 'say.hello')]
+    // #[Route('/sayHello/{name}/{firstname}', name: 'say.hello')]
     public function sayHello($name, $firstname): Response
     {
         return $this->render('first/hello.html.twig',
         [
             'nom' => $name,
             'prenom' => $firstname,
-            'path' => '    '
+            // 'path' => '    '
 
         ]);
     }

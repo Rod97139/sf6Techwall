@@ -1,31 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ asset('node_modules/bootstrap/dist/css/bootstrap.min.css') }}">
-    <title>Document</title>
-</head>
-<body>
+{% extends "template.html.twig" %}
 
-{% for message in app.session.flashBag.get('info') %}
-    <div class="alert alert-info">
-        {{ message }}
-    </div>
-{% endfor %}
-{% for message in app.session.flashBag.get('success') %}
-    <div class="alert alert-success">
-        {{ message }}
-    </div>
-{% endfor %}
-{% for message in app.session.flashBag.get('error') %}
-    <div class="alert alert-danger">
-        {{ message }}
-    </div>
-{% endfor %}
+{% block body %}
+   
+{% block pageTitle %}
+    Liste des todo : 
+{% endblock %}
 
-<h1>Liste des todos : </h1>
+
+
     <ol class="list-group">
 
         {% for name,content in app.session.get('todos') %}
@@ -40,5 +22,8 @@
 
     </ol>
 
-</body>
-</html>
+{% endblock %}
+
+{% block title %}
+    Todo
+{% endblock %}
