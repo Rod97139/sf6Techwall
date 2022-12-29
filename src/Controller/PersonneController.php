@@ -16,15 +16,15 @@ class PersonneController extends AbstractController
 
         $entityManager = $doctrine-> getManager();
         
-        $personne = new Personne();
-        $personne->setFirstname('Rod')
-                 ->setName('MINGO')
-                 ->setAge(31);
+        // $personne = new Personne();
+        // $personne->setFirstname('Rod')
+        //          ->setName('MINGO')
+        //          ->setAge(31);
 
-        $personne2 = new Personne();
-        $personne2->setFirstname('John')
-                 ->setName('Doe')
-                 ->setAge(25);
+        // $personne2 = new Personne();
+        // $personne2->setFirstname('John')
+        //          ->setName('Doe')
+        //          ->setAge(25);
 
         //Ajouter l'opération d'insertion de la personne dans ma transaction
 
