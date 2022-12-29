@@ -29,10 +29,16 @@ class PersonneController extends AbstractController
     public function indexAll(ManagerRegistry $doctrine, $page, $nbre): Response
     {
         $repository = $doctrine->getRepository(Personne::class);
-        $personnes = $repository->findBy([], ['age' => 'ASC' ], $nbre, ($page - 1) * $nbre );
-
+        $nbPersonne = $repository->count([]);
+        $nbrePage = ceil($nbPersonne / $nbre);
+        $personnes = $repository->findBy([], [], $nbre, ($page - 1) * $nbre );
+        
         return $this->render('personne/index.html.twig', [
                 'personnes' => $personnes,
+                'isPaginated' => true,
+                'nbrePage' => $nbrePage,
+                'page' => $page,
+                'nbre' => $nbre
             ]);
         
     }
