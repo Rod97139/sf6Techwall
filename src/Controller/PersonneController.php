@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Personne;
+use App\Form\PersonneType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -96,27 +97,13 @@ class PersonneController extends AbstractController
     {
 
         $entityManager = $doctrine-> getManager();
+        $personne = new Personne();
+        // $personne est l'image de notre formulaire
+        $form = $this->createForm(PersonneType::class, $personne);
         
-        // $personne = new Personne();
-        // $personne->setFirstname('Rod')
-        //          ->setName('MINGO')
-        //          ->setAge(31);
-
-        $personne2 = new Personne();
-        $personne2->setFirstname('John')
-                 ->setName('Doe')
-                 ->setAge(25);
-
-        //Ajouter l'opération d'insertion de la personne dans ma transaction
-
-        // $entityManager->persist($personne);
-        $entityManager->persist($personne2);
-        
-        //Execute la transaction Todo
-
-        $entityManager->flush();
-             return $this->render('personne/detail.html.twig', [
-            'personne' => $personne2,
+      
+             return $this->render('personne/add-personne.html.twig', [
+                'form' => $form->createView()
         ]);
     }
 

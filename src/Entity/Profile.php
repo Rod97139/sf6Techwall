@@ -77,4 +77,9 @@ class Profile
 
         return $this;
     }
+
+    public function __tostring(): string
+    {
+        return $this->rs . " " . $this->url;
+    }
 }
