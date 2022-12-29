@@ -100,6 +100,8 @@ class PersonneController extends AbstractController
         $personne = new Personne();
         // $personne est l'image de notre formulaire
         $form = $this->createForm(PersonneType::class, $personne);
+        $form->remove('createdAt');
+        $form->remove('updatedAt');
         
       
              return $this->render('personne/add-personne.html.twig', [
