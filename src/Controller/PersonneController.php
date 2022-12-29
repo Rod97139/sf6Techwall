@@ -31,11 +31,25 @@ class PersonneController extends AbstractController
     {
         $repository = $doctrine->getRepository(Personne::class);
         $personnes = $repository->findPersonnesByAgeInterval($ageMin, $ageMax);
-
         // dd($personnes); //Vs code rale pour rien encore une fois 
 
         return $this->render('personne/index.html.twig', [
                 'personnes' => $personnes,
+            ]);
+        
+    }
+
+    #[Route('/stats/age/{ageMin<\d+>}/{ageMax<\d+>}', name: 'personne.list.stats')]
+    public function statsPersonneByAge(ManagerRegistry $doctrine, $ageMin, $ageMax): Response
+    {
+        $repository = $doctrine->getRepository(Personne::class);
+        $stats = $repository->statPersonnesByAgeInterval($ageMin, $ageMax);
+        // dd($stats); //Vs code rale pour rien encore une fois 
+        
+        return $this->render('personne/stats.html.twig', [
+                'stats' => $stats[0],
+                'ageMin' => $ageMin,
+                'ageMax' => $ageMax
             ]);
         
     }
