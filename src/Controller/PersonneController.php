@@ -32,7 +32,7 @@ class PersonneController extends AbstractController
     //     $personne = $repository->find($id);
 
         if (!$personne) {
-            $this->addFlash('error', 'La personne d\'id ' . $id . ' n\'existe pas');
+            $this->addFlash('error', 'La personne n\'existe pas');
             return $this->redirectToRoute('personne.list');
         }
 
