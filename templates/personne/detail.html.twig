@@ -1,11 +1,11 @@
 {% extends 'template.html.twig' %}
 
-{% block title %}Hello PersonneController!{% endblock %}
+{% block title %}{{ personne.firstname }} {{ personne.name }}{% endblock %}
 
 {% block body %}
-    {{ dump(personne) }}
+    
 
 <div class="alert alert-success">
-    {{ personne.firstname }} {{ personne.name }} a {{ personne.age }}
+    {{ personne.firstname }} {{ personne.name }} a {{ personne.age }} ans
 </div>
 {% endblock %}
