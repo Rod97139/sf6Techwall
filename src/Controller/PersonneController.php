@@ -102,22 +102,22 @@ class PersonneController extends AbstractController
         //          ->setName('MINGO')
         //          ->setAge(31);
 
-        // $personne2 = new Personne();
-        // $personne2->setFirstname('John')
-        //          ->setName('Doe')
-        //          ->setAge(25);
+        $personne2 = new Personne();
+        $personne2->setFirstname('John')
+                 ->setName('Doe')
+                 ->setAge(25);
 
         //Ajouter l'opération d'insertion de la personne dans ma transaction
 
         // $entityManager->persist($personne);
-        // $entityManager->persist($personne2);
+        $entityManager->persist($personne2);
         
         //Execute la transaction Todo
 
-        // $entityManager->flush();
-        //      return $this->render('personne/detail.html.twig', [
-        //     'personne' => $personne,
-        // ]);
+        $entityManager->flush();
+             return $this->render('personne/detail.html.twig', [
+            'personne' => $personne2,
+        ]);
     }
 
     #[Route('/delete/{id<\d+>}', name: 'personne.delete')]
