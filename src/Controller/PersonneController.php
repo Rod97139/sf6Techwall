@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Personne;
 use App\Form\PersonneType;
 use App\Service\Helpers;
+use App\Service\MailerService;
 use App\Service\UploaderService;
 use Doctrine\Persistence\ManagerRegistry;
 use Psr\Log\LoggerInterface;
@@ -105,7 +106,8 @@ class PersonneController extends AbstractController
         Personne $personne = null,
         ManagerRegistry $doctrine,
         Request $request,
-        UploaderService $uploaderService
+        UploaderService $uploaderService,
+        MailerService $mail
         ): Response
     {
         $new =false;
@@ -140,8 +142,11 @@ class PersonneController extends AbstractController
             }else{
                 $message = ' a été édité';
             }
-
+            $mailMessage = $personne->getFirstname() . ' ' . $personne->getName() . $message;
+            
             $this->addFlash('success', $personne->getName() . $message);
+            $mail->sendEmail(content: $mailMessage);
+            
             return $this->redirectToRoute('personne.list');
         } else {
             return $this->render('personne/add-personne.html.twig', [
