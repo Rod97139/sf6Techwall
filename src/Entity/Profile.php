@@ -24,7 +24,7 @@ class Profile
     #[ORM\Column(length: 50)]
     private ?string $rs = null;
 
-    #[ORM\OneToOne(mappedBy: 'profile', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(mappedBy: 'profile', cascade: ['persist'])] //['persist', 'remove']
     private ?Personne $personne = null;
 
     public function getId(): ?int
