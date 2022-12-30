@@ -26,8 +26,6 @@ class PersonneController extends AbstractController
     public function index(ManagerRegistry $doctrine): Response
     {
 
-        // dd($this->helpers->SayCc());
-
         $repository = $doctrine->getRepository(Personne::class);
         $personnes = $repository->findAll();
 
