@@ -1,6 +1,6 @@
 {% extends 'template.html.twig' %}
 
-{% block title %}{% endblock %}
+{% block title %}Editer une personne{% endblock %}
 
 {% block body %}
                              {# test symfony validation #}
@@ -12,4 +12,12 @@
         </div>
 
     {{ form_rest(form) }}
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2();
+        });
+    </script>
 {% endblock %}
