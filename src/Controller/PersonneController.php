@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Personne;
 use App\Form\PersonneType;
+use App\Service\Helpers;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -20,6 +21,11 @@ class PersonneController extends AbstractController
     #[Route('/', name: 'personne.list')]
     public function index(ManagerRegistry $doctrine): Response
     {
+
+        $helpers = new Helpers(15);
+
+        dd($helpers->SayCc());
+
         $repository = $doctrine->getRepository(Personne::class);
         $personnes = $repository->findAll();
 
