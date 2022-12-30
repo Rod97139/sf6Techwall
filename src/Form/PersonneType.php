@@ -63,7 +63,7 @@ class PersonneType extends AbstractType
                             'image/jpeg',
                             'image/gif',
                         ],
-                        'mimeTypesMessage' => 'Please upload a valid PDF document',
+                        'mimeTypesMessage' => 'Votre image doit être en .jpg, .jpeg ou .png',
                     ])
                 ],
             ])

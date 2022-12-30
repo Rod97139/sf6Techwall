@@ -9,6 +9,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: PersonneRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -22,6 +24,13 @@ class Personne
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank(message: 'Veuiller renseigner ce champ')] //changer parametre de setFirstname() plus bas pour tester
+    #[Assert\Length(
+        min: 2,
+        max: 10,
+        minMessage: 'Veuillez avoir au moins {{ limit }} caractères', //ok
+        maxMessage: 'Votre prénom ne peut pas avoir plus de {{ limit }} caractères', // bloque le formulaire au nombre max après refresh sinon ok
+    )]
     #[ORM\Column(length: 50)]
     private ?string $firstname = null;
 

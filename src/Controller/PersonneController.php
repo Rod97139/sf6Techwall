@@ -94,7 +94,7 @@ class PersonneController extends AbstractController
     }
 
 
-    #[Route('/edit/{id?0}', name: 'personne.edit')]
+    #[Route('/edit/{id?0}', name: 'personne.edit')] //add + edit 
     public function addPersonne(Personne $personne = null, ManagerRegistry $doctrine, Request $request, SluggerInterface $slugger)//: Response
     {
         $new =false;
@@ -110,7 +110,7 @@ class PersonneController extends AbstractController
         // Mon form va aller traiter la requete
         $form->handleRequest($request);
         //Est-ce que le form a été asujeti
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             // si oui, on va ajouter l'objet dans la base de données
 
             $photo = $form->get('photo')->getData();
