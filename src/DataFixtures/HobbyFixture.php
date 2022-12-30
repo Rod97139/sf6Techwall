@@ -12,7 +12,7 @@ class HobbyFixture extends Fixture
     {
 
                   $data = ["Aller au cinéma, au théâtre, à des concerts ",
-                    "Conduire un tracteur, une voiture",
+                    "Conduire une voiture",
                     "Décorer une salle des fêtes ",
                     "Faire la cuisine, la pâtisserie",
                     "Pratiquer la spéléologie ",
