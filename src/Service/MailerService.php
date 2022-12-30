@@ -15,7 +15,7 @@ class MailerService
     public function sendEmail(
         $to = 'rodolphe.mingo@yahoo.com',
         $content = '<p>See Twig integration for better HTML integration!</p>',
-        $subject = 'Test Final !'
+        $subject = 'Mailer Symfony !'
     ): void
 
     {

@@ -6,6 +6,7 @@ use App\Entity\Personne;
 use App\Form\PersonneType;
 use App\Service\Helpers;
 use App\Service\MailerService;
+use App\Service\PdfService;
 use App\Service\UploaderService;
 use Doctrine\Persistence\ManagerRegistry;
 use Psr\Log\LoggerInterface;
@@ -34,6 +35,13 @@ class PersonneController extends AbstractController
                 'personnes' => $personnes,
             ]);
         
+    }
+
+    #[Route('/pdf/{id}', name: 'personne.pdf')]
+    public function generatePdfPersonne(Personne $personne = null, PdfService $pdf)
+    {
+        $html = $this->render('personne/detail.html.twig', ['personne' => $personne]);
+        $pdf->showPdfFile($html);
     }
 
     #[Route('/all/age/{ageMin<\d+>}/{ageMax<\d+>}', name: 'personne.list.age')]
@@ -86,9 +94,6 @@ class PersonneController extends AbstractController
     #[Route('/{id<\d+>}', name: 'personne.detail')]
     public function detail(Personne $personne = null): Response
     {
-    //     $repository = $doctrine->getRepository(Personne::class);
-    //     $personne = $repository->find($id);
-
         if (!$personne) {
             $this->addFlash('error', 'La personne n\'existe pas');
             return $this->redirectToRoute('personne.list');
