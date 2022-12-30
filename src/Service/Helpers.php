@@ -2,15 +2,16 @@
 
 namespace App\Service;
 
+use Psr\Log\LoggerInterface;
+
 class Helpers
 {
-    private $langue;
-
-    public function __construct($langue) {
-        $this->languer = $langue;
+    public function __construct(private LoggerInterface $logger) {
     }
+
     public function SayCc()
     {
+        $this->logger->info('je dis coucou');
         return 'cc';
     }
 }

@@ -6,6 +6,7 @@ use App\Entity\Personne;
 use App\Form\PersonneType;
 use App\Service\Helpers;
 use Doctrine\Persistence\ManagerRegistry;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -17,14 +18,14 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 #[Route('personne')]
 class PersonneController extends AbstractController
 {
+    public function __construct(private LoggerInterface $logger, private Helpers $helpers) {
+    }
 
     #[Route('/', name: 'personne.list')]
     public function index(ManagerRegistry $doctrine): Response
     {
 
-        $helpers = new Helpers(15);
-
-        dd($helpers->SayCc());
+        dd($this->helpers->SayCc());
 
         $repository = $doctrine->getRepository(Personne::class);
         $personnes = $repository->findAll();
