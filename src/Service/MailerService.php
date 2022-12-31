@@ -10,8 +10,11 @@ use Symfony\Component\Mime\Email;
 
 class MailerService
 {
-    public function __construct(private TransportInterface $mailer) 
-    {}
+    private $replyTo;
+    public function __construct(private TransportInterface $mailer, $replyTo) 
+    {
+        $this->replyTo = $replyTo;
+    }
     public function sendEmail(
         $to = 'rodolphe.mingo@yahoo.com',
         $content = '<p>See Twig integration for better HTML integration!</p>',
@@ -19,13 +22,12 @@ class MailerService
     ): void
 
     {
-
         $email = (new Email())
             ->from('fayaflame@gmail.com')
             ->to($to)
             //->cc('cc@example.com')
             //->bcc('bcc@example.com')
-            //->replyTo('fabien@example.com')
+            ->replyTo($this->replyTo)
             //->priority(Email::PRIORITY_HIGH)
             ->subject($subject)
             ->text('Sending emails is fun again!')

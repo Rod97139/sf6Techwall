@@ -18,6 +18,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
+
+
 #[Route('personne')]
 class PersonneController extends AbstractController
 {
@@ -47,6 +49,7 @@ class PersonneController extends AbstractController
     #[Route('/all/age/{ageMin<\d+>}/{ageMax<\d+>}', name: 'personne.list.age')]
     public function personneByAge(ManagerRegistry $doctrine, $ageMin, $ageMax): Response
     {
+        
         $repository = $doctrine->getRepository(Personne::class);
         $personnes = $repository->findPersonnesByAgeInterval($ageMin, $ageMax);
         // dd($personnes); //Vs code rale pour rien encore une fois 
