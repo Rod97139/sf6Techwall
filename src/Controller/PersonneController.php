@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 
@@ -75,7 +76,10 @@ class PersonneController extends AbstractController
         
     }
 
-    #[Route('/all/{page?1}/{nbre?12}', name: 'personne.list.all')]
+    #[
+        Route('/all/{page?1}/{nbre?12}', name: 'personne.list.all'),
+        IsGranted('ROLE_USER')       
+        ]// 2eme methode de restriction
     public function indexAll(ManagerRegistry $doctrine, $page, $nbre): Response
     {
         $repository = $doctrine->getRepository(Personne::class);
@@ -118,6 +122,7 @@ class PersonneController extends AbstractController
         MailerService $mail
         ): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN'); // 3eme methode de restriction 
         $new =false;
 
         if (!$personne) {

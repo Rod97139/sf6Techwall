@@ -9,7 +9,7 @@
     {{ personne.firstname }} {{ personne.name }} a {{ personne.age }} ans
 
     {% if app.user %}
-    <p>Created By : {{ app.user.email }} </p>
+    <p>Created By : {{ personne.name }} </p>
      {% endif %}
 </div>
 {% endblock %}

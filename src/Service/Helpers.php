@@ -8,7 +8,7 @@ use Symfony\Component\Security\Core\Security as CoreSecurity;
 
 class Helpers
 {
-    public function __construct(private LoggerInterface $logger, CoreSecurity $security) {
+    public function __construct(private LoggerInterface $logger, private CoreSecurity $security) {
     }
 
     public function SayCc()
@@ -19,6 +19,11 @@ class Helpers
 
     public function getUser(): User
     {
-        return $this->security->getUser();
+        if ($this->security->isGranted('ROLE_ADMIN')) {
+            $user = $this->security->getUser();
+            if ($user instanceof User) {
+                return $user;
+            }
+        }
     }
 }
