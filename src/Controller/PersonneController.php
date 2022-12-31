@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Personne;
+use App\Event\AddPersonneEvent;
 use App\Form\PersonneType;
 use App\Service\Helpers;
 use App\Service\MailerService;
@@ -11,6 +12,7 @@ use App\Service\UploaderService;
 use Doctrine\Persistence\ManagerRegistry;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,8 +29,11 @@ use Symfony\Component\String\Slugger\SluggerInterface;
     ]
 class PersonneController extends AbstractController
 {
-    public function __construct(private LoggerInterface $logger, private Helpers $helpers) {
-    }
+    public function __construct(
+        private LoggerInterface $logger,
+        private Helpers $helpers,
+        private EventDispatcherInterface $dispatcher
+        ) {}
 
     #[Route('/', name: 'personne.list')]
     public function index(ManagerRegistry $doctrine): Response
@@ -162,6 +167,13 @@ class PersonneController extends AbstractController
             $manager->flush();
             // Rediriger vers la liste de personne avec un flash de succès
 
+            if ($new) {
+                // On a créé notre évennement
+                $addPersonneEvent = new AddPersonneEvent($personne);
+                // On va maintenant dispatcher cet évennement
+                $this->dispatcher->dispatch($addPersonneEvent, AddPersonneEvent::ADD_PERSONNE_EVENT);
+
+            }
             $mailMessage = $personne->getFirstname() . ' ' . $personne->getName() . $message;
             
             $this->addFlash('success', $personne->getName() . $message);
