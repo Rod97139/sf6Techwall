@@ -131,6 +131,7 @@ class PersonneController extends AbstractController
         // Mon form va aller traiter la requete
         $form->handleRequest($request);
         //Est-ce que le form a été asujeti
+
         if ($form->isSubmitted() && $form->isValid()) {
         // si oui, on va ajouter l'objet dans la base de données
 
@@ -139,17 +140,20 @@ class PersonneController extends AbstractController
                     $directory = $this->getParameter('picture_directory');
                     $personne->setImage($uploaderService->uploadFile($photo, $directory));
                 }
+                
+            if ($new) {
+                $message = ' a été ajouté';
+                $personne->setCreatedBy($this->getUser());
+
+            }else{
+                $message = ' a été édité';
+            }
 
             $manager = $doctrine-> getManager();
             $manager->persist($personne);
             $manager->flush();
             // Rediriger vers la liste de personne avec un flash de succès
 
-            if ($new) {
-                $message = ' a été ajouté';
-            }else{
-                $message = ' a été édité';
-            }
             $mailMessage = $personne->getFirstname() . ' ' . $personne->getName() . $message;
             
             $this->addFlash('success', $personne->getName() . $message);
