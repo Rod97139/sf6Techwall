@@ -16,8 +16,10 @@
             <h6 class="card-subtitle mb-2 text-muted">{{ personne.firstname }} {{ personne.name }}</h6>
             <p class="card-text">Age: {{ personne.age }}</p>
             <a href="{{ path('personne.detail', {id: personne.id}) }}" class="card-link"><i class="fa-solid fa-circle-info"></i></a>
-            <a href="{{ path('personne.delete', {id: personne.id}) }}" class="card-link"><i class="fa-solid fa-user-xmark"></i></a>
-            <a href="{{ path('personne.edit', {id: personne.id}) }}" class="card-link"><i class="fa-solid fa-user-pen"></i></a>
+            {% if is_granted('ROLE_ADMIN') %}       
+                <a href="{{ path('personne.delete', {id: personne.id}) }}" class="card-link"><i class="fa-solid fa-user-xmark"></i></a>
+                <a href="{{ path('personne.edit', {id: personne.id}) }}" class="card-link"><i class="fa-solid fa-user-pen"></i></a>
+             {% endif %}
         </div>
     </div>
      </div>

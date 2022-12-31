@@ -21,7 +21,10 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 
 
-#[Route('personne')]
+#[
+    Route('personne'),
+    IsGranted('ROLE_USER')       
+    ]
 class PersonneController extends AbstractController
 {
     public function __construct(private LoggerInterface $logger, private Helpers $helpers) {
@@ -172,7 +175,10 @@ class PersonneController extends AbstractController
         }
     }
 
-    #[Route('/delete/{id<\d+>}', name: 'personne.delete')]
+    #[
+        Route('/delete/{id<\d+>}', name: 'personne.delete'),
+        IsGranted('ROLE_ADMIN')
+    ]
     public function deletePersonne(Personne $personne = null, ManagerRegistry $doctrine): RedirectResponse
     {
         //récupérer l'id
