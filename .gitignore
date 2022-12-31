@@ -1,5 +1,6 @@
 
 ###> symfony/framework-bundle ###
+public/assets/css/styles.css
 .env
 /.env.local
 /.env.local.php
