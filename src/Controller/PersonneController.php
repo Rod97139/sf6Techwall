@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Personne;
 use App\Event\AddPersonneEvent;
+use App\Event\ListAllPersonneEvent;
 use App\Form\PersonneType;
 use App\Service\Helpers;
 use App\Service\MailerService;
@@ -95,6 +96,10 @@ class PersonneController extends AbstractController
         // dd($nbPersonne);
         $nbrePage = ceil($nbPersonne / $nbre);
         $personnes = $repository->findBy([], [], $nbre, ($page - 1) * $nbre );
+        
+        //Event listener
+        $listAllPersonneEvent = new ListAllPersonneEvent(count($personnes));
+        $this->dispatcher->dispatch($listAllPersonneEvent, ListAllPersonneEvent::LIST_ALL_PERSONNE_EVENT);
         
         return $this->render('personne/index.html.twig', [
                 'personnes' => $personnes,
