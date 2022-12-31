@@ -26,6 +26,7 @@ services:
     App\EventListener\PersonneListener:
         tags:
             - { name: kernel.event_listener, event: personne.add, method: onPersonneAdd }
+            # - { name: kernel.event_listener, event: kernel.request, method: logKernelRequest, priority: -2000 }
             - { name: kernel.event_listener, event: personne.list_all, method: onListAllPersonne }
             - { name: kernel.event_listener, event: personne.list_all, method: onListAllPersonne2, priority: 100 }
 

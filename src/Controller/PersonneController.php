@@ -96,7 +96,7 @@ class PersonneController extends AbstractController
         // dd($nbPersonne);
         $nbrePage = ceil($nbPersonne / $nbre);
         $personnes = $repository->findBy([], [], $nbre, ($page - 1) * $nbre );
-        
+
         //Event listener
         $listAllPersonneEvent = new ListAllPersonneEvent(count($personnes));
         $this->dispatcher->dispatch($listAllPersonneEvent, ListAllPersonneEvent::LIST_ALL_PERSONNE_EVENT);
@@ -179,10 +179,12 @@ class PersonneController extends AbstractController
                 $this->dispatcher->dispatch($addPersonneEvent, AddPersonneEvent::ADD_PERSONNE_EVENT);
 
             }
-            $mailMessage = $personne->getFirstname() . ' ' . $personne->getName() . $message;
+
+            
+            // $mailMessage = $personne->getFirstname() . ' ' . $personne->getName() . $message;
             
             $this->addFlash('success', $personne->getName() . $message);
-            $mail->sendEmail(content: $mailMessage);
+            // $mail->sendEmail(content: $mailMessage);
             
             return $this->redirectToRoute('personne.list');
         } else {
